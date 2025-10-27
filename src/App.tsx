@@ -29,7 +29,7 @@ function App() {
         onClose={() => setIsAddProductOpen(false)}
         onAdd={handleAddProduct} />
 
-      <div className="header">
+      {!loading && <div className="header">
         <button className="add_product" onClick={() => setIsAddProductOpen(true)}>
           Добавить товар
         </button>
@@ -42,8 +42,7 @@ function App() {
           <option value="rating">Рейтинг</option>
         </select>
         {/* </div> */}
-      </div>
-
+      </div>}
 
 
       <Products products={products} loading={loading} sortType={sortType} onSave={handleSaveUpdatedProduct} />

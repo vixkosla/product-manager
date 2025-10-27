@@ -33,7 +33,7 @@ export default function Products({ products, loading, sortType, onSave }: Props)
         }
     }, [products, sortType])
 
-    if (loading) return <p>Загрузка...</p>;
+    if (loading) return <p>Loading...</p>;
     if (!products) return <p>Нет данных о продуктах</p>;
 
     // const handleSave = (updated: Product) => {
