@@ -11,7 +11,7 @@ type Props = {
 }
 
 export const AddProduct = ({ open, onClose, onAdd }: Props) => {
-    const { categories, loading } = useCategories();
+    const { categories } = useCategories();
 
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
