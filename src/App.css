@@ -1,0 +1,385 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  position: relative;
+  min-width: 356px;
+
+    --bg: #0f1720;           /* фон страницы (у тебя тёмный) */
+  --modal-bg: #ffffff;     /* фон модалки */
+  --muted: #6b7280;        /* текст-плейсхолдеры */
+  --text: #0f1720;
+  --accent-1: #2563eb;     /* primary */
+  --accent-2: #1e40af;     /* primary-dark */
+  --soft-shadow: 0 8px 24px rgba(2,6,23,0.16);
+  --radius: 12px;
+
+    --modal-width: 520px;
+  --radius: 14px;
+  --bg-backdrop: rgba(10,12,15,0.72);
+  --modal-bg: #ffffff;
+  --accent: #2d7bfd; /* основной синий для полей */
+  --accent-dark: #1b5edb;
+  --muted-label: rgba(17,24,39,0.45);
+  --field-border: rgba(17,24,39,0.06);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 20px;
+}
+
+.header button {
+  /* flex: 1; */
+  font-size: 12px;
+  padding: 12px;
+}
+
+.header select {
+  padding-left: 10px;
+  font-size: 12px;
+  line-height: 1rem;
+  height: 2.0rem;
+  /* width: 30%; */
+  /* max-width: 10vw; */
+}
+
+/* Products */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.container h1 {
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.1vw;
+  opacity: 0.3;
+  position: absolute;
+  font-size: 7vw;
+  top: 25px;
+  left: 200px;
+  z-index: -1;
+  transform: scale(2.25);
+  white-space: nowrap;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: rgb(92, 89, 97);
+  
+  /* max-width: 270px; */
+}
+
+.card img {
+  height: 150px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.card h2 {
+  font-size: 1.25rem;
+  text-align: left;
+  line-height: 1.5rem;
+}
+
+.price {
+  font-weight: bold;
+  text-align: left;
+  color: #0070f3;
+}
+
+
+/* backdrop */
+.backdrop{
+  position: fixed;
+  inset: 0;
+  background: rgba(2,6,23,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 1200;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+/* контейнер формы */
+.form-container {
+  width: 520px;
+  max-width: 100%;
+  max-height: calc(100vh - 48px); /* чтобы не выходило за экран */
+  overflow: auto;
+  background: var(--modal-bg);
+  color: var(--text);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--soft-shadow);
+  border: 1px solid rgba(15,23,32,0.06);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transform-origin: center;
+  animation: modal-appear .16s ease;
+}
+
+/* появление */
+@keyframes modal-appear {
+  from { opacity: 0; transform: translateY(10px) scale(.995); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* форма */
+.form-container form {
+  display: grid;
+  gap: 12px;
+}
+
+/* общий стиль инпутов/select/textarea */
+.form-container input[type="text"],
+.form-container input[type="number"],
+.form-container select,
+.form-container textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(15,23,32,0.06);
+  background: #f8fafc; /* лёгкий нейтральный фон для полей */
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  transition: box-shadow .12s ease, border-color .12s ease, transform .06s ease;
+  box-sizing: border-box;
+}
+
+/* placeholder */
+.form-container input::placeholder,
+.form-container textarea::placeholder {
+  color: var(--muted);
+  opacity: 0.95;
+}
+
+/* фокус */
+.form-container input:focus,
+.form-container select:focus,
+.form-container textarea:focus {
+  border-color: rgba(37,99,235,0.85);
+  box-shadow: 0 6px 18px rgba(37,99,235,0.08);
+  transform: translateY(-1px);
+}
+
+/* textarea */
+.form-container textarea {
+  min-height: 84px;
+  resize: vertical;
+  line-height: 1.4;
+}
+
+/* select немного стилизуем (на базе обычного select) */
+.form-container select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+    linear-gradient(135deg, var(--muted) 50%, transparent 50%),
+    linear-gradient(to right, rgba(0,0,0,0.06), rgba(0,0,0,0.06));
+  background-position:
+    calc(100% - 18px) calc(1em + 2px),
+    calc(100% - 13px) calc(1em + 2px),
+    calc(100% - 2.5em) 50%;
+  background-size:
+    6px 6px,
+    6px 6px,
+    1px 1.2em;
+  background-repeat: no-repeat;
+  padding-right: 40px;
+}
+
+/* заголовок формы (если нужно) */
+.form-container h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  color: #111827;
+}
+
+/* кнопки */
+.buttons-container {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+
+/* базовый btn */
+.btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  min-width: 98px;
+  box-sizing: border-box;
+  transition: transform .08s ease, box-shadow .12s ease, opacity .08s ease;
+}
+
+/* secondary */
+.btn.secondary {
+  background: #fff;
+  color: #111827;
+  border: 1px solid rgba(15,23,32,0.06);
+  box-shadow: 0 4px 10px rgba(2,6,23,0.04);
+}
+.btn.secondary:hover { transform: translateY(-2px); }
+
+/* primary gradient */
+.btn.primary {
+  color: #fff;
+  background: linear-gradient(180deg, var(--accent-1), var(--accent-2));
+  box-shadow: 0 10px 22px rgba(37,99,235,0.18);
+}
+.btn.primary:hover { transform: translateY(-2px); }
+
+/* disabled */
+.btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* адаптив */
+@media (max-width: 540px) {
+  .form-container { padding: 14px; width: 100%; }
+  .btn { min-width: 80px; padding: 10px 12px; }
+}
+
+/* тонкий скроллбар внутри модалки (Webkit) */
+.form-container::-webkit-scrollbar { width: 8px; }
+.form-container::-webkit-scrollbar-thumb {
+  background: rgba(2,6,23,0.08);
+  border-radius: 8px;
+}
+
+/* CONTAINER */
+.view-container {
+  width: var(--modal-width);
+  max-width: 100%;
+  max-height: calc(100vh - 48px);
+  overflow: auto;
+  background: var(--modal-bg);
+  border-radius: var(--radius);
+  padding: 22px 26px;
+  box-shadow: 0 18px 50px rgba(2,6,23,0.45);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transform-origin: center;
+}
+
+/* HEADER (сверху справа, бледный) */
+.view-container h3 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+  text-align: right;
+  opacity: 0.22;
+  text-transform: lowercase;
+  letter-spacing: 0.6px;
+}
+
+/* ПОЛЯ */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* подписи */
+.field label {
+  font-size: 12px;
+  color: var(--muted-label);
+  font-weight: 600;
+  opacity: 0.9;
+  margin-left: 4px;
+}
+
+/* синие инпуты — pill */
+.field input {
+  padding: 10px 14px;
+  font-size: 14px;
+  border-radius: 10px;
+  border: 0;
+  background: linear-gradient(180deg, var(--accent), var(--accent-dark));
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(45,123,253,0.14);
+  outline: none;
+  transition: transform .06s ease, box-shadow .12s ease;
+}
+
+/* фокус — чуть ярче */
+.field input:focus {
+  box-shadow: 0 12px 30px rgba(45,123,253,0.18);
+  transform: translateY(-1px);
+}
+
+/* статичные поля (категория/описание) */
+.field.static p {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: transparent;
+  border: 0;
+  color: #111827;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* описание — более лёгкий шрифт и строки */
+.field.description p {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.45;
+  color: rgba(17,24,39,0.85);
+  text-align: center;
+  padding: 10px 12px;
+  white-space: pre-wrap;
+}
+
+/* картинка */
+.view-container img {
+  width: 140px;
+  height: auto;
+  align-self: center;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(2,6,23,0.18);
+  margin-top: 6px;
+}
+
+/* make sure long description scrolls inside modal */
+.view-container::-webkit-scrollbar { height: 8px; width: 8px; }
+.view-container::-webkit-scrollbar-thumb { background: rgba(2,6,23,0.06); border-radius: 8px; }
+
+/* responsive tweaks */
+@media (max-width: 540px) {
+  .view-container { padding: 16px; width: 100%; max-height: calc(100vh - 32px); }
+  .field input { font-size: 15px; padding: 12px; border-radius: 8px; }
+  .field.description p { font-size: 14px; line-height: 1.4; }
+  .view-container img { width: 120px; }
+}
